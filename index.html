@@ -1,0 +1,2179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="庞佳悦的 Edexcel IAL Economics 每周复习与课后作业">
+  <link rel="icon" href="data:,">
+  <title>庞佳悦 | Weekly Review & Homework | Edexcel IAL Economics</title>
+  <style>
+    :root {
+      --paper: #f3f1ed;
+      --paper-2: #fbfaf7;
+      --ink: #252a2d;
+      --muted: #686f70;
+      --line: #d4d0c7;
+      --charcoal: #29383e;
+      --burgundy: #8a5055;
+      --blue: #5e7b89;
+      --green: #6d7e70;
+      --foundation: #606966;
+      --market: #4f746b;
+      --ochre: #9a7c41;
+      --red-soft: #ead8d8;
+      --green-soft: #dfe7df;
+      --blue-soft: #dce6ea;
+      --shadow: 0 12px 36px rgba(35, 42, 45, 0.14);
+      --radius: 5px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, "Helvetica Neue", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body {
+      background: #d8d6d1;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+    button, textarea { font: inherit; }
+    button { color: inherit; }
+
+    #app {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .deck {
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      position: relative;
+      background: var(--paper);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 3.1rem 4rem 3.2rem;
+      background: var(--paper);
+      overflow: hidden;
+    }
+    .slide.active { display: flex; flex-direction: column; }
+    .slide::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 9px;
+      height: 100%;
+      background: var(--section-color, var(--burgundy));
+    }
+    .slide[data-section="foundation"] { --section-color: var(--foundation); }
+    .slide[data-section="review"] { --section-color: var(--green); }
+    .slide[data-section="cover"] { --section-color: var(--charcoal); }
+    .slide[data-section="tax"] { --section-color: var(--burgundy); }
+    .slide[data-section="rational"] { --section-color: var(--blue); }
+    .slide[data-section="market"] { --section-color: var(--market); }
+    .slide[data-section="exam"] { --section-color: var(--ochre); }
+    .slide[data-section="close"] { --section-color: var(--charcoal); }
+
+    .kicker {
+      color: var(--section-color, var(--burgundy));
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3, p, li, button {
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+    h1, h2, h3 { font-family: var(--serif); }
+    h1 {
+      font-size: 3.45rem;
+      line-height: 1.04;
+      margin-bottom: 0.65rem;
+      max-width: 92%;
+    }
+    h2 {
+      font-size: 2.65rem;
+      line-height: 1.08;
+      margin-bottom: 0.48rem;
+    }
+    h2.compact { font-size: 2.25rem; }
+    h3 {
+      font-size: 1.55rem;
+      line-height: 1.15;
+      margin-bottom: 0.45rem;
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .rule {
+      height: 1px;
+      background: var(--line);
+      margin: 0.5rem 0 1.15rem;
+      flex: 0 0 auto;
+    }
+    .content,
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .split-wide,
+    .stack,
+    .term-grid,
+    .term,
+    .exam-box,
+    .quiz,
+    .quiz-option,
+    .callout,
+    .formula {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .content { flex: 1; min-height: 0; }
+    .footer-source {
+      margin-top: auto;
+      padding-top: 0.55rem;
+      color: #747977;
+      font-size: 0.7rem;
+      flex: 0 0 auto;
+    }
+    .footer-source a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.14em;
+    }
+    abbr.econ-abbr {
+      text-decoration: underline dotted;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.14em;
+      cursor: help;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.15rem; height: 100%; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+    .split-wide { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 1.2rem; height: 100%; }
+    .stack { display: grid; gap: 0.8rem; align-content: start; }
+
+    .panel {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--panel-color, var(--burgundy));
+      border-radius: var(--radius);
+      padding: 1.05rem 1.15rem;
+      min-width: 0;
+    }
+    .panel.dark {
+      background: var(--charcoal);
+      color: #f3f4f1;
+      border-color: #3c4c52;
+    }
+    .panel.blue { --panel-color: var(--blue); }
+    .panel.green { --panel-color: var(--green); }
+    .panel.ochre { --panel-color: var(--ochre); }
+    .panel.charcoal { --panel-color: var(--charcoal); }
+    .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+    .definition {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      line-height: 1.42;
+    }
+    .definition strong { color: #fff; background: var(--burgundy); padding: 0.06em 0.18em; }
+    .definition .blue-hl { background: var(--blue); }
+    .definition .green-hl { background: var(--green); }
+    .definition .ochre-hl { background: var(--ochre); }
+    .hard-label {
+      display: inline-block;
+      border: 1px solid var(--ochre);
+      background: #f4efe3;
+      color: #444b4e;
+      padding: 0.28rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .term-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; height: 100%; }
+    .term {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--term-color, var(--burgundy));
+      padding: 0.85rem 1rem;
+    }
+    .term h3 { font-size: 1.42rem; }
+    .term p { color: #515759; line-height: 1.42; margin-bottom: 0; font-size: 0.95rem; }
+
+    .exam-box {
+      background: #fff;
+      border: 1px solid #bbb8b1;
+      padding: 1.05rem 1.2rem;
+      line-height: 1.48;
+      font-size: 1rem;
+    }
+    .exam-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--burgundy);
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+    }
+    .translation {
+      border-left: 4px solid var(--line);
+      color: #596062;
+      font-size: 0.86rem;
+      line-height: 1.42;
+      margin: 0.7rem 0 0;
+      padding-left: 0.7rem;
+    }
+    .marks {
+      display: inline-block;
+      border: 1px solid currentColor;
+      padding: 0.18rem 0.38rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .chain {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.55rem;
+      align-items: stretch;
+    }
+    .chain.four { grid-template-columns: repeat(4, 1fr); }
+    .chain.six { grid-template-columns: repeat(6, 1fr); }
+    .chain.compact-vertical .chain-step { min-height: 5rem; }
+    .chain-step {
+      position: relative;
+      min-height: 7.2rem;
+      background: var(--paper-2);
+      border-top: 5px solid var(--step-color, var(--burgundy));
+      padding: 0.85rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    .chain-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -0.5rem;
+      top: 50%;
+      transform: translate(50%, -50%);
+      font-size: 1.5rem;
+      color: var(--muted);
+      z-index: 2;
+    }
+    .chain-step strong { font-size: 0.95rem; }
+    .chain-step span { margin-top: 0.35rem; font-size: 0.78rem; color: var(--muted); line-height: 1.35; }
+
+    ul.clean { list-style: none; padding: 0; margin: 0; }
+    ul.clean li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-bottom: 0.55rem;
+      line-height: 1.4;
+    }
+    ul.clean li::before {
+      content: "";
+      width: 0.38rem;
+      height: 0.38rem;
+      position: absolute;
+      left: 0;
+      top: 0.48rem;
+      background: var(--section-color, var(--burgundy));
+    }
+    .small { font-size: 0.82rem; }
+    .muted { color: var(--muted); }
+    .center { text-align: center; }
+    .big-number { font-family: var(--serif); font-size: 3rem; line-height: 1; color: var(--burgundy); }
+    .formula {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      background: var(--charcoal);
+      color: #fff;
+      padding: 0.85rem 1rem;
+      border-left: 6px solid var(--ochre);
+    }
+    .formula.compact { font-size: 1.16rem; line-height: 1.35; }
+    .calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.82rem;
+    }
+    .calc-table th,
+    .calc-table td {
+      border: 1px solid var(--line);
+      padding: 0.42rem 0.5rem;
+      text-align: center;
+    }
+    .calc-table th {
+      background: #ece9e2;
+      font-weight: 800;
+    }
+    .calc-table tr.focus-row td {
+      background: var(--green-soft);
+      font-weight: 800;
+    }
+    .dense {
+      font-size: 0.8rem;
+      line-height: 1.38;
+    }
+    .dense p { margin-bottom: 0.48rem; }
+    .dense ul.clean li { margin-bottom: 0.34rem; }
+    .bilingual-line {
+      border-left: 4px solid var(--line);
+      padding-left: 0.65rem;
+      margin-top: 0.45rem;
+      color: #596062;
+      font-size: 0.82rem;
+      line-height: 1.38;
+    }
+    .mcq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      height: 100%;
+    }
+    .mcq-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--ochre);
+      padding: 0.85rem 1rem;
+      min-width: 0;
+      font-size: 0.78rem;
+      line-height: 1.32;
+    }
+    .mcq-card h3 {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      margin-bottom: 0.45rem;
+    }
+    .mcq-card p { margin-bottom: 0.45rem; }
+    .option-list {
+      display: grid;
+      gap: 0.24rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .option-list li {
+      border-left: 3px solid #c8c5be;
+      padding: 0.2rem 0.45rem;
+      background: #faf9f6;
+    }
+    .essay-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.95rem;
+      height: 100%;
+    }
+    .essay-text {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--ochre);
+      padding: 0.8rem 0.95rem;
+      font-size: 0.76rem;
+      line-height: 1.38;
+      min-width: 0;
+    }
+    .essay-text p { margin-bottom: 0.55rem; }
+    .essay-text p:last-child { margin-bottom: 0; }
+    .rubric {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      font-size: 0.75rem;
+      line-height: 1.28;
+    }
+    .rubric th,
+    .rubric td {
+      border: 1px solid var(--line);
+      padding: 0.36rem 0.45rem;
+      vertical-align: top;
+    }
+    .rubric th {
+      background: #ece9e2;
+      text-align: left;
+    }
+    .answer-key {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem 0.9rem;
+    }
+    .answer-key div {
+      border-left: 4px solid var(--green);
+      background: #fff;
+      padding: 0.38rem 0.55rem;
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+    .math-step {
+      border-left: 5px solid var(--step-color, var(--market));
+      background: #fff;
+      padding: 0.55rem 0.7rem;
+      line-height: 1.35;
+      font-size: 0.86rem;
+    }
+    .math-step strong {
+      display: block;
+      margin-bottom: 0.16rem;
+    }
+    .callout {
+      border-left: 6px solid var(--section-color, var(--burgundy));
+      background: rgba(255,255,255,0.62);
+      padding: 0.8rem 1rem;
+      line-height: 1.45;
+    }
+    .label {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.38rem;
+      background: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .quiz {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+    .quiz-option {
+      text-align: left;
+      border: 1px solid #bbb8b1;
+      background: #fff;
+      border-radius: 3px;
+      padding: 0.7rem 0.85rem;
+      cursor: pointer;
+      width: 100%;
+      white-space: normal;
+      min-height: 3.4rem;
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+    .quiz-option:hover { border-color: var(--blue); background: #f7fafb; }
+    .quiz-option.correct { border-color: var(--green); background: var(--green-soft); }
+    .quiz-option.wrong { border-color: var(--burgundy); background: var(--red-soft); }
+    .quiz-feedback {
+      grid-column: 1 / -1;
+      min-height: 2.7rem;
+      border-left: 5px solid var(--blue);
+      background: #eef2f3;
+      padding: 0.65rem 0.8rem;
+      line-height: 1.4;
+      font-size: 0.9rem;
+    }
+
+    textarea.response {
+      width: 100%;
+      height: 8.2rem;
+      resize: none;
+      border: 1px solid #aaa8a2;
+      background: #fff;
+      border-radius: 3px;
+      padding: 0.75rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .reveal {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(5px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+    .reveal.shown { opacity: 1; visibility: visible; transform: none; }
+
+    svg.econ {
+      width: 100%;
+      height: 100%;
+      min-height: 19rem;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .axis { stroke: #343b3e; stroke-width: 2.4; }
+    .guide { stroke: #a9ada9; stroke-width: 1.4; stroke-dasharray: 5 5; }
+    .curve-d { stroke: var(--blue); stroke-width: 5; fill: none; }
+    .curve-s { stroke: var(--green); stroke-width: 5; fill: none; }
+    .curve-tax { stroke: var(--burgundy); stroke-width: 5; fill: none; }
+    .curve-sub { stroke: var(--ochre); stroke-width: 5; fill: none; }
+    .curve-social { stroke: var(--burgundy); stroke-width: 5; fill: none; }
+    .point { fill: var(--ink); }
+    .tax-area { fill: rgba(138, 80, 85, 0.22); stroke: var(--burgundy); stroke-width: 1.5; }
+    .sub-area { fill: rgba(154, 124, 65, 0.23); stroke: var(--ochre); stroke-width: 1.5; }
+    .welfare-area { fill: rgba(154, 124, 65, 0.28); stroke: var(--ochre); stroke-width: 2; }
+    .svg-label { font: 700 18px Arial, sans-serif; fill: #343b3e; }
+    .svg-small { font: 14px Arial, sans-serif; fill: #616869; }
+    .svg-accent { font: 700 16px Arial, sans-serif; fill: var(--burgundy); }
+
+    .nav-btn, .tool-btn {
+      border: 1px solid rgba(255,255,255,0.25);
+      background: var(--charcoal);
+      color: white;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.9rem;
+      height: 4.6rem;
+      z-index: 20;
+      font-size: 1.6rem;
+    }
+    #prevBtn { left: 0; }
+    #nextBtn { right: 0; }
+    .nav-btn:hover, .tool-btn:hover { background: #3a4a50; }
+    .toolbar {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.75rem;
+      display: flex;
+      gap: 0.35rem;
+      z-index: 21;
+    }
+    .tool-btn {
+      width: 2.35rem;
+      height: 2.35rem;
+      border-radius: 2px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .page-count {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 22;
+      background: #929694;
+      color: white;
+      padding: 0.45rem 0.75rem;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+    .section-tag {
+      position: absolute;
+      right: 1rem;
+      bottom: 0.55rem;
+      color: #858a88;
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .toc {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: rgba(31, 38, 41, 0.86);
+      display: none;
+      place-items: center;
+      padding: 1.5rem;
+    }
+    .toc.open { display: grid; }
+    .toc-panel {
+      width: min(65rem, 92vw);
+      max-height: 88vh;
+      overflow: auto;
+      background: var(--paper);
+      padding: 1.4rem;
+      border-top: 8px solid var(--burgundy);
+      box-shadow: var(--shadow);
+    }
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
+    }
+    .toc-item {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 0.55rem 0.65rem;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .toc-item:hover { border-color: var(--burgundy); }
+
+    .presenter {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: #1f2528;
+      color: #f4f3ef;
+      display: none;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .presenter.open { display: grid; }
+    .presenter-preview {
+      min-width: 0;
+      display: grid;
+      place-items: center;
+      background: #111719;
+      overflow: hidden;
+    }
+    .presenter-preview .slide-clone {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--paper);
+      color: var(--ink);
+      overflow: hidden;
+      transform: scale(0.92);
+      transform-origin: center;
+      position: relative;
+      padding: 2.4rem 3rem;
+    }
+    .presenter-preview .slide-clone .reveal.shown { opacity: 1; visibility: visible; transform: none; }
+    .presenter-preview template { display: none; }
+    .presenter-notes {
+      min-width: 0;
+      background: #2b3438;
+      padding: 1.1rem;
+      overflow: auto;
+      line-height: 1.45;
+    }
+    .presenter-notes h3 { font-family: var(--sans); font-size: 1rem; color: #c8d7dc; margin-top: 0.9rem; }
+    .presenter-notes p { font-size: 0.88rem; }
+    .presenter-controls { display: flex; gap: 0.45rem; position: sticky; top: 0; background: #2b3438; padding-bottom: 0.7rem; }
+    .presenter-controls button {
+      border: 1px solid #68767b;
+      background: #20282b;
+      color: #fff;
+      padding: 0.45rem 0.65rem;
+      cursor: pointer;
+    }
+
+    @media (min-width: 801px) and (max-height: 650px) {
+      html { font-size: 14px; }
+      .slide { padding: 2.15rem 3.2rem 2.45rem; }
+      h1 { font-size: 3rem; }
+      h2 { font-size: 2.05rem; }
+      h2.compact { font-size: 1.82rem; }
+      h3 { font-size: 1.18rem; margin-bottom: 0.3rem; }
+      .kicker { font-size: 0.7rem; margin-bottom: 0.35rem; }
+      .subtitle { font-size: 0.88rem; line-height: 1.3; margin-bottom: 0.5rem; }
+      .rule { margin: 0.3rem 0 0.7rem; }
+      .grid-2, .split-wide { gap: 0.75rem; }
+      .grid-3, .grid-4, .term-grid { gap: 0.58rem; }
+      .stack { gap: 0.5rem; }
+      .panel { padding: 0.66rem 0.78rem; border-top-width: 4px; }
+      .callout { padding: 0.55rem 0.72rem; line-height: 1.3; }
+      .hard-label { font-size: 0.58rem; margin-bottom: 0.45rem; padding: 0.2rem 0.38rem; }
+      .dense { font-size: 0.72rem; line-height: 1.27; }
+      .dense p { margin-bottom: 0.32rem; }
+      .dense ul.clean li { margin-bottom: 0.2rem; }
+      .bilingual-line { margin-top: 0.28rem; padding-left: 0.45rem; font-size: 0.72rem; line-height: 1.26; }
+      .footer-source { padding-top: 0.35rem; font-size: 0.61rem; }
+      .definition { font-size: 1.32rem; }
+      .exam-box { padding: 0.72rem 0.82rem; font-size: 0.8rem; line-height: 1.34; }
+      .exam-meta { margin-bottom: 0.4rem; font-size: 0.62rem; }
+      .formula.compact { font-size: 0.9rem; padding: 0.55rem 0.65rem; }
+      .mcq-grid { gap: 0.65rem; }
+      .mcq-card { padding: 0.62rem 0.72rem; font-size: 0.7rem; line-height: 1.22; }
+      .mcq-card h3 { font-size: 0.76rem; margin-bottom: 0.28rem; }
+      .mcq-card p { margin-bottom: 0.28rem; }
+      .option-list { gap: 0.13rem; }
+      .option-list li { padding: 0.12rem 0.32rem; }
+      .essay-columns { gap: 0.68rem; }
+      .essay-text { padding: 0.58rem 0.7rem; font-size: 0.72rem; line-height: 1.24; }
+      .essay-text p { margin-bottom: 0.34rem; }
+      .rubric { font-size: 0.7rem; line-height: 1.16; }
+      .rubric th, .rubric td { padding: 0.22rem 0.3rem; }
+      .answer-key { gap: 0.25rem 0.55rem; }
+      .answer-key div { padding: 0.25rem 0.4rem; font-size: 0.7rem; line-height: 1.2; }
+      svg.econ { min-height: 14.5rem; }
+      .big-number { font-size: 2.35rem; }
+    }
+
+    @media (max-width: 800px) {
+      html { height: auto; min-height: 100%; overflow-y: auto; overflow-x: hidden; }
+      body { height: auto; min-height: 100dvh; overflow: visible; }
+      #app { display: block; height: auto; min-height: 100dvh; max-width: 100vw; overflow: visible; }
+      .deck { width: 100%; max-width: 100vw; height: auto; min-height: 100dvh; overflow: visible; box-shadow: none; }
+      .slide { position: relative; inset: auto; width: 100%; max-width: 100vw; min-height: 100dvh; height: auto; padding: 4.2rem 1.35rem 4.6rem 1.7rem; overflow-x: hidden; overflow-y: visible; }
+      h1 { font-size: 2.35rem; max-width: 100%; }
+      h2, h2.compact { font-size: 2rem; }
+      h3 { font-size: 1.25rem; }
+      .subtitle { font-size: 1rem; }
+      .exam-meta { flex-wrap: wrap; }
+      .grid-2, .grid-3, .grid-4, .split-wide, .term-grid { grid-template-columns: 1fr; height: auto; }
+      .mcq-grid, .essay-columns, .answer-key { grid-template-columns: 1fr; height: auto; }
+      .chain, .chain.four, .chain.six { grid-template-columns: 1fr; }
+      .chain-step { min-height: auto; }
+      .chain-step:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -0.75rem; transform: translate(50%, 50%); }
+      .quiz { grid-template-columns: 1fr; }
+      .quiz-feedback { grid-column: 1; }
+      .nav-btn { position: fixed; top: auto; bottom: 0.4rem; transform: none; height: 2.8rem; width: 3.2rem; }
+      #prevBtn { left: 0.35rem; }
+      #nextBtn { right: 0.35rem; }
+      .toolbar { position: fixed; top: 0.45rem; right: 0.45rem; }
+      .page-count { position: fixed; left: 50%; transform: translateX(-50%); padding: 0.4rem 0.55rem; }
+      .section-tag { display: none; }
+      .toc-list { grid-template-columns: 1fr; }
+      .presenter { grid-template-columns: 1fr; grid-template-rows: 0.55fr 0.45fr; }
+      .presenter-preview .slide-clone { transform: scale(0.72); }
+      svg.econ { min-height: 16rem; }
+      .definition { font-size: 1.35rem; }
+    }
+
+    .student-window .toolbar,
+    .student-window .nav-btn { display: none !important; }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      html { height: auto; min-height: 100%; overflow-y: auto; overflow-x: hidden; }
+      body { height: auto; min-height: 100dvh; overflow: visible; }
+      #app { display: block; height: auto; min-height: 100dvh; max-width: 100vw; overflow: visible; }
+      .deck { width: 100%; max-width: 100vw; height: auto; min-height: 100dvh; overflow: visible; box-shadow: none; }
+      .slide {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        max-width: 100vw;
+        min-height: 100dvh;
+        height: auto;
+        padding: 3rem 3.8rem 3.5rem;
+        overflow-x: hidden;
+        overflow-y: visible;
+      }
+      h1 { font-size: 2.25rem; max-width: 100%; }
+      h2, h2.compact { font-size: 1.9rem; }
+      h3 { font-size: 1.2rem; }
+      .subtitle { font-size: 0.95rem; }
+      .nav-btn { position: fixed; top: 50%; bottom: auto; transform: translateY(-50%); height: 3.8rem; width: 2.8rem; }
+      #prevBtn { left: 0; }
+      #nextBtn { right: 0; }
+      .toolbar { position: fixed; top: 0.4rem; right: 0.45rem; }
+      .page-count { position: fixed; left: 0; transform: none; }
+      .section-tag { position: fixed; }
+      svg.econ { min-height: 16rem; }
+    }
+
+    @media print {
+      html, body { overflow: visible; background: white; }
+      #app { display: block; }
+      .deck { width: 100%; height: auto; box-shadow: none; overflow: visible; }
+      .slide { position: relative; display: flex !important; width: 100%; aspect-ratio: 16 / 9; break-after: page; }
+      .reveal { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+      .nav-btn, .toolbar, .page-count, .section-tag, .toc, .presenter { display: none !important; }
+    }
+  </style>
+  <style id="portrait-document-layout">
+    html {
+      width: 100%;
+      height: auto;
+      min-height: 100%;
+      margin: 0;
+      overflow-x: clip;
+      overflow-y: auto;
+      background: #dedbd5;
+      scroll-behavior: smooth;
+    }
+    body.post-class-document {
+      width: 100%;
+      height: auto;
+      min-height: 100%;
+      margin: 0;
+      overflow: visible;
+      background: #dedbd5;
+    }
+    body.post-class-document #app {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+      display: block;
+      padding: 1rem 1rem 4rem;
+    }
+    body.post-class-document .deck {
+      width: min(52rem, calc(100% - 2rem));
+      height: auto;
+      margin: 0 auto;
+      position: static;
+      overflow: visible;
+      background: transparent;
+      box-shadow: none;
+    }
+    body.post-class-document .slide,
+    body.post-class-document .slide.active {
+      position: relative;
+      inset: auto;
+      display: flex !important;
+      width: 100%;
+      min-height: 0;
+      height: auto;
+      margin: 0 0 1rem;
+      padding: 2.35rem 2.6rem 2.15rem;
+      overflow: visible;
+      flex-direction: column;
+      background: var(--paper);
+      border: 1px solid #cbc7be;
+      box-shadow: 0 8px 24px rgba(35, 42, 45, 0.1);
+    }
+    body.post-class-document .slide::before { width: 7px; }
+    body.post-class-document h2,
+    body.post-class-document h2.compact {
+      font-size: 2.05rem;
+      line-height: 1.08;
+    }
+    body.post-class-document h3 { font-size: 1.3rem; }
+    body.post-class-document .subtitle { font-size: 1rem; }
+    body.post-class-document .content {
+      flex: none;
+      min-height: 0;
+      height: auto;
+    }
+    body.post-class-document .grid-2,
+    body.post-class-document .term-grid,
+    body.post-class-document .mcq-grid,
+    body.post-class-document .answer-key {
+      grid-template-columns: 1fr 1fr;
+      height: auto;
+    }
+    body.post-class-document .grid-3,
+    body.post-class-document .grid-4 {
+      grid-template-columns: 1fr 1fr;
+      height: auto;
+    }
+    body.post-class-document .split-wide,
+    body.post-class-document .essay-columns {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    body.post-class-document .essay-text {
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+    body.post-class-document svg.econ {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: 620 / 410;
+    }
+    body.post-class-document .reveal {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+    body.post-class-document .footer-source {
+      margin-top: 1.1rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--line);
+    }
+    body.post-class-document .nav-btn,
+    body.post-class-document .toolbar,
+    body.post-class-document .page-count,
+    body.post-class-document .section-tag,
+    body.post-class-document .toc,
+    body.post-class-document .presenter {
+      display: none !important;
+    }
+    @media (max-width: 760px) {
+      body.post-class-document #app { padding: 0.4rem 0.3rem 3rem; }
+      body.post-class-document .deck { width: calc(100% - 0.6rem); }
+      body.post-class-document .slide,
+      body.post-class-document .slide.active {
+        padding: 1.65rem 1.25rem 1.5rem;
+      }
+      body.post-class-document h2,
+      body.post-class-document h2.compact { font-size: 1.75rem; }
+      body.post-class-document .grid-2,
+      body.post-class-document .grid-3,
+      body.post-class-document .grid-4,
+      body.post-class-document .term-grid,
+      body.post-class-document .mcq-grid,
+      body.post-class-document .answer-key {
+        grid-template-columns: 1fr;
+      }
+      body.post-class-document .callout[style*="grid-column"] { grid-column: 1 !important; }
+    }
+    @media print {
+      @page { size: A4 portrait; margin: 12mm; }
+      html, body.post-class-document { background: #fff; }
+      body.post-class-document #app { padding: 0; }
+      body.post-class-document .deck { width: 100%; }
+      body.post-class-document .slide,
+      body.post-class-document .slide.active {
+        width: 100%;
+        aspect-ratio: auto;
+        margin: 0;
+        padding: 12mm 10mm;
+        border: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+      }
+      .panel, .mcq-card, .essay-text, .callout, table, svg {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+  <style id="document-navigation">
+    .doc-header {
+      width: min(52rem, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 2.4rem 1.8rem;
+      color: #f7f5ef;
+      background: var(--charcoal);
+      border-left: 7px solid var(--ochre);
+      box-shadow: 0 8px 24px rgba(35, 42, 45, 0.12);
+    }
+    .doc-header .kicker { color: #d9c28e; }
+    .doc-header h1 {
+      max-width: 100%;
+      margin-bottom: 0.65rem;
+      font-size: 2.8rem;
+    }
+    .doc-header p {
+      max-width: 44rem;
+      margin-bottom: 0;
+      color: #dce1df;
+      line-height: 1.5;
+    }
+    .doc-toc {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: min(52rem, calc(100% - 2rem));
+      margin: 0 auto 1rem;
+      padding: 0.6rem;
+      overflow: visible;
+      isolation: isolate;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 5px 16px rgba(35, 42, 45, 0.16);
+    }
+    .doc-toc-track {
+      display: flex;
+      gap: 0.35rem;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+    .doc-toc-track::-webkit-scrollbar {
+      height: 5px;
+    }
+    .doc-toc-track::-webkit-scrollbar-thumb {
+      background: #b5b0a6;
+    }
+    .doc-toc a {
+      flex: 0 0 auto;
+      padding: 0.42rem 0.58rem;
+      color: var(--ink);
+      background: #fff;
+      border-left: 3px solid var(--ochre);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .doc-toc a:hover,
+    .doc-toc a:focus-visible {
+      background: #ece8df;
+      outline: none;
+    }
+    .chapter-heading {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem;
+      align-items: center;
+      margin: 1.5rem 0 0.7rem;
+      padding: 0.75rem 1rem;
+      color: var(--ink);
+      background: #e8e5de;
+      border-left: 6px solid var(--ochre);
+      scroll-margin-top: 4.5rem;
+    }
+    .chapter-heading span {
+      color: var(--ochre);
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+    .chapter-heading strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.15rem;
+    }
+    .chapter-heading small { color: var(--muted); }
+    body.post-class-document .slide { scroll-margin-top: 4.5rem; }
+    .answer-details {
+      margin-top: 0.3rem;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+    .answer-details summary {
+      padding: 0.75rem 0.9rem;
+      cursor: pointer;
+      color: var(--ink);
+      font-weight: 800;
+      background: #ece9e2;
+    }
+    .answer-details .answer-key { padding: 0.8rem; }
+    .tax-mini {
+      width: 100%;
+      height: auto;
+      margin: 0.65rem 0 0.35rem;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .essay-key,
+    .essay-text strong,
+    .key-underline {
+      font-weight: 700;
+      text-decoration-line: underline;
+      text-decoration-color: var(--ochre);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+      text-decoration-skip-ink: auto;
+    }
+    @media (max-width: 760px) {
+      .doc-header,
+      .doc-toc {
+        width: calc(100% - 0.6rem);
+      }
+      .doc-header { padding: 1.5rem 1.25rem; }
+      .doc-header h1 { font-size: 2.15rem; }
+      .chapter-heading { margin-top: 1rem; }
+    }
+    @media print {
+      .doc-toc { display: none; }
+      .doc-header {
+        width: 100%;
+        margin: 0 0 8mm;
+        box-shadow: none;
+      }
+      .chapter-heading { break-after: avoid; }
+      .answer-details > summary { display: none; }
+      .answer-details:not([open]) > *:not(summary) { display: block; }
+    }
+  </style>
+</head>
+<body class="post-class-document">
+  <main id="app">
+    <header class="doc-header" id="top">
+      <div class="kicker">庞佳悦 · Edexcel IAL Economics · Post-class pack</div>
+      <h1>庞佳悦 · Weekly Review & Homework</h1>
+      <p>Prepared for Pang Jiayue (庞佳悦): this week's indirect-tax review, exam method, official homework and complete model answers.</p>
+    </header>
+    <nav class="doc-toc" aria-label="Document contents">
+      <div class="doc-toc-track">
+        <a href="#review">01 Review</a>
+        <a href="#method">02 20-mark method</a>
+        <a href="#homework">03 MCQs</a>
+        <a href="#essays">20-mark examples</a>
+        <a href="#uganda">Uganda answer</a>
+        <a href="#romania">Romania answer</a>
+        <a href="#checklist">Checklist</a>
+      </div>
+    </nav>
+    <div class="deck" id="deck">
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <div class="chapter-heading" id="review">
+        <span>01</span>
+        <div><strong>Core review</strong><small>Indirect taxation and MPC–MSC diagnosis</small></div>
+      </div>
+      <section class="slide" data-title="Weekly review · New knowledge only" data-section="review">
+        <div class="kicker">Tax essentials · 考试核心知识</div>
+        <h2>Specific tax vs ad valorem tax</h2>
+        <p class="subtitle">税楔的计征方式决定供给曲线的变化形态。</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div class="panel blue">
+            <h3>Specific / unit tax · 从量税</h3>
+            <div class="formula compact">P<sub>s</sub> = a + bQ<br>P<sub>c</sub> = (a + T) + bQ<br>Slope remains b</div>
+            <svg class="tax-mini" viewBox="0 0 280 150" role="img" aria-label="A specific tax raises supply by the same vertical amount at every quantity">
+              <line class="axis" x1="32" y1="128" x2="258" y2="128"/>
+              <line class="axis" x1="32" y1="128" x2="32" y2="18"/>
+              <line class="curve-s" x1="46" y1="118" x2="242" y2="66"/>
+              <line class="curve-tax" x1="46" y1="84" x2="242" y2="32"/>
+              <line x1="102" y1="69" x2="102" y2="103" style="stroke:var(--burgundy);stroke-width:3"/>
+              <line x1="205" y1="42" x2="205" y2="76" style="stroke:var(--burgundy);stroke-width:3"/>
+              <text class="svg-label" x="220" y="29">S + T</text>
+              <text class="svg-label" x="246" y="68">S</text>
+              <text class="svg-accent" x="76" y="24">constant T</text>
+              <text class="svg-small" x="10" y="25">P</text>
+              <text class="svg-small" x="253" y="145">Q</text>
+            </svg>
+            <ul class="clean dense" style="margin-top:0.55rem;">
+              <li><strong>Definition:</strong> fixed money amount per unit</li>
+              <li>Fixed wedge: P<sub>c</sub>(Q) − P<sub>s</sub>(Q) = T</li>
+              <li>Intercept changes; slope remains b; vertical gap stays T</li>
+            </ul>
+            <p class="bilingual-line" lang="zh-CN">每个 Q 都在原供给价格上加同一个固定金额 T，因此纵向距离不变。</p>
+          </div>
+          <div class="panel ochre">
+            <h3>Ad valorem tax · 从价税</h3>
+            <div class="formula compact">P<sub>s</sub> = a + bQ<br>P<sub>c</sub> = (1 + τ)(a + bQ)<br>Slope becomes (1 + τ)b</div>
+            <svg class="tax-mini" viewBox="0 0 280 150" role="img" aria-label="Ad valorem tax makes the supply curve pivot and diverge">
+              <line class="axis" x1="32" y1="128" x2="258" y2="128"/>
+              <line class="axis" x1="32" y1="128" x2="32" y2="18"/>
+              <line class="curve-s" x1="42" y1="122" x2="242" y2="70"/>
+              <line class="curve-tax" x1="42" y1="122" x2="220" y2="28"/>
+              <line x1="103" y1="90" x2="103" y2="106" style="stroke:var(--burgundy);stroke-width:3"/>
+              <line x1="195" y1="41" x2="195" y2="82" style="stroke:var(--burgundy);stroke-width:3"/>
+              <text class="svg-label" x="202" y="26">S + τ</text>
+              <text class="svg-label" x="245" y="72">S</text>
+              <text class="svg-accent" x="72" y="24">wedge grows</text>
+              <text class="svg-small" x="10" y="25">P</text>
+              <text class="svg-small" x="253" y="145">Q</text>
+            </svg>
+            <ul class="clean dense" style="margin-top:0.55rem;">
+              <li><strong>Definition:</strong> percentage of the product's value</li>
+              <li>Variable wedge: P<sub>c</sub>(Q) − P<sub>s</sub>(Q) = τP<sub>s</sub>(Q)</li>
+              <li>Intercept and slope multiply by 1 + τ → pivot/divergence</li>
+            </ul>
+            <p class="bilingual-line" lang="zh-CN">每个 Q 的税额都等于原供给价格乘以税率；价格越高，纵向距离越大。</p>
+          </div>
+          <div class="callout dense" style="grid-column:1 / -1;">
+            <strong>公式说明：</strong>从量税采用加法形式 P + T，增加量恒定；从价税采用乘法形式 (1 + τ)P，增加量随 P 扩大。
+          </div>
+        </div>
+        <div class="footer-source">Pearson Student Book 1, Chapter 13, pp.90–91; Edexcel IAL Economics Specification 1.3.4.</div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Identify the tax base first. A fixed monetary wedge adds the same vertical amount at every quantity; a percentage wedge expands with price and produces a pivot.</p>
+          <h3>中文讲解</h3>
+          <p>选定任意数量 Q，并由原供给曲线确定价格 Ps(Q)。从量税增加固定金额 T；从价税乘以 1 + τ。比较同一 Q 上两个价格的差，即可判断税楔恒定还是随价格扩大。</p>
+        </template>
+      </section>
+
+      <section class="slide" id="tax-pq-detail" data-title="Weekly review · Tax types with P and Q" data-section="review">
+        <div class="kicker">One supply curve · Same Q · Different tax rule</div>
+        <h2 class="compact">基于同一 P-Q 供给函数比较两类税收</h2>
+        <p class="subtitle">统一设原供给曲线为 P<sub>s</sub>(Q) = Q。含义：供给 Q 单位时，生产者每单位至少要保留价格 Q。</p>
+        <div class="rule"></div>
+        <div class="callout dense" style="margin-bottom:0.9rem;">
+          <strong>图形说明：</strong>横轴表示数量 Q，纵轴表示价格 P。选定任意数量 Q，原曲线 S 给出 P<sub>s</sub>(Q)；税后曲线给出消费者必须支付的 P<sub>c</sub>(Q)。<span class="key-underline">两条曲线在同一 Q 上的纵向距离等于单位税额。</span>
+        </div>
+        <div class="content grid-2">
+          <div class="panel blue">
+            <h3>从量税：T = £5</h3>
+            <div class="formula compact">P<sub>s</sub>(Q) = Q<br>P<sub>c</sub>(Q) = P<sub>s</sub>(Q) + 5 = Q + 5</div>
+            <svg class="econ" viewBox="0 0 600 390" role="img" aria-label="从量税下税额在Q等于10和20时都为5，因此每个数量上的纵向税楔相同">
+              <line class="axis" x1="72" y1="330" x2="560" y2="330"/>
+              <line class="axis" x1="72" y1="330" x2="72" y2="35"/>
+              <line class="curve-s" x1="72" y1="330" x2="520" y2="90"/>
+              <line class="curve-tax" x1="72" y1="290" x2="520" y2="50"/>
+              <line class="guide" x1="221" y1="330" x2="221" y2="210"/>
+              <line class="guide" x1="371" y1="330" x2="371" y2="130"/>
+              <line x1="221" y1="250" x2="221" y2="210" style="stroke:var(--burgundy);stroke-width:5"/>
+              <line x1="371" y1="170" x2="371" y2="130" style="stroke:var(--burgundy);stroke-width:5"/>
+              <circle class="point" cx="221" cy="250" r="5"/>
+              <circle class="point" cx="221" cy="210" r="5"/>
+              <circle class="point" cx="371" cy="170" r="5"/>
+              <circle class="point" cx="371" cy="130" r="5"/>
+              <text class="svg-label" x="476" y="48">S + £5</text>
+              <text class="svg-label" x="525" y="93">S</text>
+              <text class="svg-accent" x="230" y="234">£5</text>
+              <text class="svg-accent" x="380" y="154">£5</text>
+              <text class="svg-small" x="207" y="355">Q=10</text>
+              <text class="svg-small" x="357" y="355">Q=20</text>
+              <text class="svg-small" x="18" y="52">P</text>
+              <text class="svg-small" x="538" y="372">Q</text>
+            </svg>
+            <div class="math-step">
+              <strong>在 Q = 10：</strong>P<sub>s</sub> = £10，P<sub>c</sub> = £15，税额 = £5。<br>
+              <strong>在 Q = 20：</strong>P<sub>s</sub> = £20，P<sub>c</sub> = £25，税额仍为 £5。
+            </div>
+            <p class="dense" style="margin-top:0.55rem;"><strong>结论：</strong>P<sub>c</sub>(Q) − P<sub>s</sub>(Q) = 5，与 Q 无关；两条线斜率都为 1，各个 Q 上的纵向距离恒定。</p>
+          </div>
+          <div class="panel ochre">
+            <h3>从价税：τ = 25%</h3>
+            <div class="formula compact">P<sub>s</sub>(Q) = Q<br>P<sub>c</sub>(Q) = 1.25P<sub>s</sub>(Q) = 1.25Q</div>
+            <svg class="econ" viewBox="0 0 600 390" role="img" aria-label="从价税下税额随Q对应的供给价格上升而扩大，所以供给曲线旋转">
+              <line class="axis" x1="72" y1="330" x2="560" y2="330"/>
+              <line class="axis" x1="72" y1="330" x2="72" y2="35"/>
+              <line class="curve-s" x1="72" y1="330" x2="520" y2="90"/>
+              <line class="curve-tax" x1="72" y1="330" x2="520" y2="30"/>
+              <line class="guide" x1="221" y1="330" x2="221" y2="230"/>
+              <line class="guide" x1="371" y1="330" x2="371" y2="130"/>
+              <line x1="221" y1="250" x2="221" y2="230" style="stroke:var(--burgundy);stroke-width:5"/>
+              <line x1="371" y1="170" x2="371" y2="130" style="stroke:var(--burgundy);stroke-width:5"/>
+              <circle class="point" cx="221" cy="250" r="5"/>
+              <circle class="point" cx="221" cy="230" r="5"/>
+              <circle class="point" cx="371" cy="170" r="5"/>
+              <circle class="point" cx="371" cy="130" r="5"/>
+              <text class="svg-label" x="450" y="30">S + 25%</text>
+              <text class="svg-label" x="525" y="93">S</text>
+              <text class="svg-accent" x="230" y="246">£2.5</text>
+              <text class="svg-accent" x="380" y="154">£5</text>
+              <text class="svg-small" x="207" y="355">Q=10</text>
+              <text class="svg-small" x="357" y="355">Q=20</text>
+              <text class="svg-small" x="18" y="52">P</text>
+              <text class="svg-small" x="538" y="372">Q</text>
+            </svg>
+            <div class="math-step">
+              <strong>在 Q = 10：</strong>P<sub>s</sub> = £10，税额 = 25% × £10 = £2.5，P<sub>c</sub> = £12.5。<br>
+              <strong>在 Q = 20：</strong>P<sub>s</sub> = £20，税额 = 25% × £20 = £5，P<sub>c</sub> = £25。
+            </div>
+            <p class="dense" style="margin-top:0.55rem;"><strong>结论：</strong>税楔 = 0.25Q，随 Q 对应的 P<sub>s</sub> 上升；原线斜率为 1，税后斜率为 1.25，所以曲线向上旋转并发散。</p>
+          </div>
+          <table class="calc-table" style="grid-column:1 / -1;">
+            <thead>
+              <tr><th>固定数量</th><th>原供给价格 P<sub>s</sub>(Q)</th><th>从量税 T=£5</th><th>从量税后 P<sub>c</sub></th><th>从价税额 25%×P<sub>s</sub></th><th>从价税后 P<sub>c</sub></th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Q = 10</td><td>£10</td><td>£5</td><td>£15</td><td>£2.5</td><td>£12.5</td></tr>
+              <tr><td>Q = 20</td><td>£20</td><td>£5</td><td>£25</td><td>£5</td><td>£25</td></tr>
+              <tr><td>Q = 30</td><td>£30</td><td>£5</td><td>£35</td><td>£7.5</td><td>£37.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout dense">
+          <strong>判别规则：</strong><span class="key-underline">固定金额 → 各个 Q 上增加相同金额；百分比税率 → 税楔扩大，曲线旋转或发散。</span>题目表述为“£x per unit / per litre / per packet”时，单位税额不随 P、Q 改变；题目表述为“x% / VAT / ad valorem”时，单位税额 = τP，P 越高税额越大。
+        </div>
+        <div class="footer-source">Pearson Edexcel International AS/A Level Economics Student Book 1, Chapter 13, pp.90–91; Specification 1.3.4.</div>
+      </section>
+
+      <section class="slide" id="tax-exam-hierarchy" data-title="Weekly review · Tax exam hierarchy" data-section="review">
+        <div class="kicker">Exam hierarchy · Board-specific precision</div>
+        <h2 class="compact">旋转是 Edexcel 得分点，不是所有考试局的统一要求</h2>
+        <p class="subtitle">先完成一般间接税分析，再满足 Edexcel 对显性从价税的精确图形要求。</p>
+        <div class="rule"></div>
+        <div class="content grid-3">
+          <div class="panel green">
+            <div class="label">Level 1 · 基础分</div>
+            <h3>所有考试局</h3>
+            <ul class="clean dense">
+              <li>说明税收改变企业的供给条件</li>
+              <li>画出整条供给计划向左／向上移动</li>
+              <li>消费者价格上升、均衡数量下降</li>
+              <li>分析税负分配与政府收入</li>
+            </ul>
+          </div>
+          <div class="panel blue">
+            <div class="label">Level 2 · 其他考试局</div>
+            <h3>旋转通常不是独立必得点</h3>
+            <p class="dense">一般 indirect tax 题准确表示供给移动和新均衡即可。题干没有明确写 percentage、VAT 或 ad valorem 时，通常不必额外展示旋转；以当期评分标准为准。</p>
+          </div>
+          <div class="panel ochre">
+            <div class="label">Level 3 · Edexcel IAL</div>
+            <h3>显性从价税要画旋转</h3>
+            <ul class="clean dense">
+              <li>百分比税使单位货币税额随 P 扩大</li>
+              <li>税后供给曲线必须旋转／发散</li>
+              <li>官方 WEC11 评分标准把 pivot 作为图形知识点</li>
+              <li>解释旋转原因可提高图形与分析精确度</li>
+            </ul>
+          </div>
+          <div class="panel charcoal" style="grid-column:1 / -1;">
+            <h3>Edexcel 得分表达</h3>
+            <div class="formula compact">P<sub>τ</sub>(Q) = (1 + τ)P<sub>s</sub>(Q)<br>
+              P<sub>s</sub>(Q) = a + bQ → 税后斜率 = (1 + τ)b &gt; b
+            </div>
+            <p class="dense" style="margin-top:0.65rem;"><em>Because the tax is ad valorem, the money tax per unit rises with price; therefore the tax-inclusive supply curve pivots and diverges from the original supply curve.</em></p>
+          </div>
+        </div>
+        <div class="footer-source">
+          Edexcel official <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_msc_20190307.pdf" target="_blank" rel="noopener">January 2019 WEC11 mark scheme</a>.
+        </div>
+      </section>
+
+      <section class="slide" data-title="Weekly review · Tax diagram logic" data-section="review">
+        <div class="kicker">Weekly consolidation · Diagram and logic</div>
+        <h2>Read every tax diagram through four outcomes</h2>
+        <p class="subtitle">分析税收图形时，应依次考察价格、数量、税负与政府收入。</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div class="panel">
+            <h3>Incidence and revenue</h3>
+            <ul class="clean dense">
+              <li><strong>Consumer incidence per unit</strong> = Pc − P₀</li>
+              <li><strong>Producer incidence per unit</strong> = P₀ − Pp</li>
+              <li><strong>Tax per unit</strong> = Pc − Pp</li>
+              <li><strong>Government revenue</strong> = (Pc − Pp) × Q₁</li>
+            </ul>
+            <p class="bilingual-line" lang="zh-CN">税负由价格变化决定；<span class="key-underline">政府收入是“税楔 × 征税后交易量”</span>，不是原交易量。</p>
+          </div>
+          <div class="panel blue">
+            <h3>Elasticity decides burden</h3>
+            <p class="dense"><span class="key-underline">The less price-elastic side of the market bears more of the tax.</span> Inelastic demand therefore gives consumers a larger incidence; inelastic supply gives producers a larger incidence.</p>
+            <p class="bilingual-line" lang="zh-CN"><span class="key-underline">弹性较小的一方承担更多税负。</span>需求缺乏弹性时消费者承担更多；供给缺乏弹性时生产者承担更多。</p>
+          </div>
+          <div class="panel green">
+            <h3>Surplus and welfare</h3>
+            <p class="dense">Consumer surplus and producer surplus fall. <span class="key-underline">Tax revenue is a transfer, not welfare loss.</span> Only the remaining net loss from trades that no longer occur is welfare loss.</p>
+            <p class="bilingual-line" lang="zh-CN">消费者剩余和生产者剩余下降，<span class="key-underline">税收收入属于转移，并非福利损失</span>；因交易消失而产生的净损失才是福利损失。</p>
+          </div>
+          <div class="panel ochre">
+            <h3>Evaluation test</h3>
+            <p class="dense">A tax can reduce harmful consumption and raise revenue, but <span class="key-underline">its effectiveness depends on elasticity, substitution, information, enforcement costs and the use of revenue.</span></p>
+            <p class="bilingual-line" lang="zh-CN">税收可能减少有害消费并增加收入，但<span class="key-underline">效果取决于弹性、替代行为、信息、执行成本以及收入用途</span>。</p>
+          </div>
+        </div>
+        <div class="footer-source">Pearson Edexcel IAL Economics Specification 1.3.4(4) and 1.3.6.</div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Keep transfers and net losses separate. A fall in consumer or producer surplus is not automatically deadweight loss because some surplus becomes government revenue.</p>
+          <h3>中文讲解</h3>
+          <p>剩余减少不等于全部福利损失。应先识别其中转化为政府收入的转移部分，其余净社会损失才构成福利损失。</p>
+        </template>
+      </section>
+
+      <section class="slide" id="mpc-msc-diagnosis" data-title="Weekly review · MPC and MSC diagnosis" data-section="review">
+        <div class="kicker">Production externalities · MPC–MSC diagnosis</div>
+        <h2 class="compact">MPC 与 MSC 谁在上面？三步判断正负生产外部性</h2>
+        <p class="subtitle">曲线本身不叫“积极”或“消极”；同一数量 Q 上两条成本曲线的高低，决定生产外部性的方向。</p>
+        <div class="rule"></div>
+        <div class="panel charcoal" style="margin-bottom:0.9rem;">
+          <h3>先固定同一个 Q，再计算成本差</h3>
+          <div class="formula compact">Δ(Q) = MSC(Q) − MPC(Q)</div>
+          <p class="dense" style="margin-top:0.6rem;">Δ &gt; 0 → 社会成本高于私人成本 → 负生产外部性；Δ = 0 → 无生产外部性；Δ &lt; 0 → 社会成本低于私人成本 → 正生产外部性。</p>
+        </div>
+        <div class="content grid-2">
+          <div class="panel">
+            <h3>负生产外部性 · MSC 在上</h3>
+            <svg class="econ" viewBox="0 0 600 390" role="img" aria-label="MSC above MPC indicates a negative production externality and overproduction">
+              <line class="axis" x1="70" y1="330" x2="560" y2="330"/>
+              <line class="axis" x1="70" y1="330" x2="70" y2="35"/>
+              <line class="curve-d" x1="110" y1="60" x2="530" y2="320"/>
+              <line class="curve-s" x1="100" y1="315" x2="520" y2="100"/>
+              <line class="curve-social" x1="100" y1="255" x2="520" y2="40"/>
+              <polygon class="welfare-area" points="278,164 331,137 331,197"/>
+              <line class="guide" x1="278" y1="330" x2="278" y2="164"/>
+              <line class="guide" x1="331" y1="330" x2="331" y2="137"/>
+              <line x1="220" y1="194" x2="220" y2="254" style="stroke:var(--burgundy);stroke-width:4"/>
+              <circle class="point" cx="278" cy="164" r="5"/>
+              <circle class="point" cx="331" cy="197" r="5"/>
+              <text class="svg-label" x="522" y="43">MSC</text>
+              <text class="svg-label" x="522" y="104">MPC</text>
+              <text class="svg-label" x="397" y="312">D = MPB = MSB</text>
+              <text class="svg-accent" x="228" y="228">MEC &gt; 0</text>
+              <text class="svg-small" x="265" y="354">Q*</text>
+              <text class="svg-small" x="318" y="354">Qm</text>
+              <text class="svg-small" x="16" y="52">P / cost</text>
+              <text class="svg-small" x="520" y="375">Quantity</text>
+            </svg>
+            <div class="math-step">
+              <strong>判断：</strong>MSC(Q) − MPC(Q) = MEC(Q) &gt; 0。<br>
+              <strong>含义：</strong>企业没有承担污染、噪音等第三方成本。<br>
+              <strong>结果：</strong>Qm &gt; Q*，市场过度生产。
+            </div>
+          </div>
+          <div class="panel blue">
+            <h3>正生产外部性 · MSC 在下</h3>
+            <svg class="econ" viewBox="0 0 600 390" role="img" aria-label="MSC below MPC indicates a positive production externality and underproduction">
+              <line class="axis" x1="70" y1="330" x2="560" y2="330"/>
+              <line class="axis" x1="70" y1="330" x2="70" y2="35"/>
+              <line class="curve-d" x1="110" y1="60" x2="530" y2="320"/>
+              <line class="curve-s" x1="100" y1="255" x2="520" y2="40"/>
+              <line class="curve-social" x1="100" y1="315" x2="520" y2="100"/>
+              <polygon class="welfare-area" points="278,164 278,224 331,197"/>
+              <line class="guide" x1="278" y1="330" x2="278" y2="164"/>
+              <line class="guide" x1="331" y1="330" x2="331" y2="197"/>
+              <line x1="220" y1="194" x2="220" y2="254" style="stroke:var(--burgundy);stroke-width:4"/>
+              <circle class="point" cx="278" cy="164" r="5"/>
+              <circle class="point" cx="331" cy="197" r="5"/>
+              <text class="svg-label" x="522" y="43">MPC</text>
+              <text class="svg-label" x="522" y="104">MSC</text>
+              <text class="svg-label" x="397" y="312">D = MPB = MSB</text>
+              <text class="svg-accent" x="228" y="228">external benefit</text>
+              <text class="svg-small" x="265" y="354">Qm</text>
+              <text class="svg-small" x="318" y="354">Q*</text>
+              <text class="svg-small" x="16" y="52">P / cost</text>
+              <text class="svg-small" x="520" y="375">Quantity</text>
+            </svg>
+            <div class="math-step">
+              <strong>判断：</strong>MPC(Q) − MSC(Q) &gt; 0，生产产生外部收益。<br>
+              <strong>含义：</strong>社会获得企业未计入决策的技术扩散、培训等收益。<br>
+              <strong>结果：</strong>Qm &lt; Q*，市场生产不足。
+            </div>
+          </div>
+          <table class="calc-table" style="grid-column:1 / -1;">
+            <thead>
+              <tr><th>同一个 Q 上的关系</th><th>成本差</th><th>生产外部性</th><th>市场结果</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>MSC &gt; MPC</td><td>MSC − MPC = MEC &gt; 0</td><td>Negative production externality</td><td>Qm &gt; Q*，过度生产</td></tr>
+              <tr><td>MSC = MPC</td><td>成本差 = 0</td><td>No production externality</td><td>Qm = Q*</td></tr>
+              <tr><td>MSC &lt; MPC</td><td>MPC − MSC = 外部收益 &gt; 0</td><td>Positive production externality</td><td>Qm &lt; Q*，生产不足</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout dense">
+          <strong>三步口诀：</strong>固定 Q → 看 MSC 在 MPC 上方还是下方 → 上方是外部成本、下方是外部收益。不要根据曲线斜率判断，也不要把 MPC 或 MSC 本身称为“正”或“负”。
+        </div>
+        <div class="footer-source">
+          Pearson official <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Specification-and-Sample-Assessment/International-A-Level-Economics-spec.pdf" target="_blank" rel="noopener">Specification 1.3.5</a>, p.19.
+        </div>
+      </section>
+
+      <div class="chapter-heading" id="method">
+        <span>02</span>
+        <div><strong>20-mark method</strong><small>Writing structure and official level descriptors</small></div>
+      </div>
+      <section class="slide" data-title="20-mark answer framework" data-section="exam">
+        <div class="kicker">20-mark method · Official-descriptor synthesis</div>
+        <h2>A repeatable structure for “Evaluate”</h2>
+        <p class="subtitle">Pearson does not prescribe a paragraph formula; this structure operationalises its public level descriptors.</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div class="panel">
+            <h3>Opening and diagram</h3>
+            <ol class="dense">
+              <li>Define the exact policy or concept.</li>
+              <li>Classify it precisely: specific or ad valorem.</li>
+              <li>Use one stem fact immediately.</li>
+              <li>Draw, shift, label and explain the diagram.</li>
+            </ol>
+          </div>
+          <div class="panel blue">
+            <h3>KAA chain × 2 or 3</h3>
+            <p class="dense"><strong>Change</strong> → market mechanism → price/quantity or incentive → stakeholder effect → wider microeconomic consequence.</p>
+            <p class="dense"><span class="key-underline">Integrate a number, named market or institution inside each chain.</span> A quoted number without explanation is not developed application.</p>
+          </div>
+          <div class="panel green">
+            <h3>Evaluation chain × 2 or 3</h3>
+            <p class="dense"><strong>Condition</strong> → why it changes magnitude or direction → contextual evidence or evidence limit → revised conclusion.</p>
+            <p class="dense"><span class="key-underline">Evaluation must explain why a condition changes the magnitude or direction of the result.</span> Useful tests include elasticity, time, distribution, substitution and enforcement.</p>
+          </div>
+          <div class="panel ochre">
+            <h3>Final judgement</h3>
+            <p class="dense">Answer the question directly. <span class="key-underline">State the most likely effect, the decisive condition and the missing evidence.</span> Do not merely repeat both sides.</p>
+          </div>
+          <div class="callout" style="grid-column:1 / -1;">
+            <strong>Compact paragraph pattern:</strong> claim → because → therefore → context → however → because → mini-judgement.
+          </div>
+        </div>
+        <div class="footer-source">
+          Derived from Pearson's public <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">WEC11 October 2021 mark scheme</a> and
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Teaching-and-Learning-Materials/IAL_Economics_Unit_1_exemplar_responses.pdf" target="_blank" rel="noopener">official Unit 1 exemplars</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>This is a writing routine, not a Pearson rule. Marks come from precise knowledge, integrated context, developed reasoning and evaluative judgement, not from counting paragraphs.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="20-mark official levels" data-section="exam">
+        <div class="kicker">20-mark scoring · KAA 12 + Evaluation 8</div>
+        <h2>What moves an answer into the top level</h2>
+        <p class="subtitle">The two grids are judged separately, then added.</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div>
+            <div class="hard-label">KNOWLEDGE, APPLICATION AND ANALYSIS · 12</div>
+            <table class="rubric">
+              <tr><th>Level</th><th>Marks</th><th>Condensed official descriptor</th></tr>
+              <tr><td>1</td><td>1–3</td><td>Isolated or imprecise knowledge; generic material; descriptive, with no chain.</td></tr>
+              <tr><td>2</td><td>4–6</td><td>Some knowledge and limited context; narrow or superficial two-stage chains.</td></tr>
+              <tr><td>3</td><td>7–9</td><td>Accurate knowledge and some relevant context; clear chains, but stages may be missing.</td></tr>
+              <tr class="focus-row"><td>4</td><td>10–12</td><td>Accurate, precise knowledge; fully integrated context; clear, focused, logical multi-stage chains.</td></tr>
+            </table>
+          </div>
+          <div>
+            <div class="hard-label">EVALUATION · 8</div>
+            <table class="rubric">
+              <tr><th>Level</th><th>Marks</th><th>Condensed official descriptor</th></tr>
+              <tr><td>1</td><td>1–3</td><td>Generic evaluative comments; no context and no logical chain.</td></tr>
+              <tr><td>2</td><td>4–6</td><td>Alternative approaches with some context; partially developed evaluation.</td></tr>
+              <tr class="focus-row"><td>3</td><td>7–8</td><td>Different viewpoints and/or critical use of evidence; contextual logical chain leading to an informed judgement.</td></tr>
+            </table>
+            <div class="callout dense" style="margin-top:0.65rem;">
+              <strong>Top-level test:</strong> <span class="key-underline">if the country or market can be replaced without changing the paragraph, the application is too generic.</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">WEC11/01 October 2021 Q13 mark scheme</a>, pp.18–19.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>A diagram supports KAA but does not substitute for an explained chain. Evaluation reaches Level 3 only when conditions and evidence lead to an informed judgement.</p>
+        </template>
+      </section>
+
+      <div class="chapter-heading" id="homework">
+        <span>03</span>
+        <div><strong>Homework</strong><small>10 official MCQs only</small></div>
+      </div>
+      <section class="slide" data-title="Homework MCQ 1–2" data-section="close">
+        <div class="kicker">Homework · Official past-paper MCQs 1–2</div>
+        <h2 class="compact">Government failure and market failure</h2>
+        <div class="rule"></div>
+        <div class="content mcq-grid">
+          <div class="mcq-card">
+            <h3>1 · January 2019 Q3</h3>
+            <p><strong>Which one of the following is a cause of government failure?</strong></p>
+            <ul class="option-list">
+              <li>A · Excessive administrative costs involved in meeting environmental regulations.</li>
+              <li>B · A market bubble causing the price to rise excessively.</li>
+              <li>C · The existence of free riders leading to the under-production of public goods.</li>
+              <li>D · Under-production of foods with external benefits.</li>
+            </ul>
+          </div>
+          <div class="mcq-card">
+            <h3>2 · May 2019 Q3</h3>
+            <p><strong>Which one of the following is an example of market failure?</strong></p>
+            <ul class="option-list">
+              <li>A · Lower prices create an incentive for firms to switch production to more profitable activities.</li>
+              <li>B · Excessive administrative costs are involved in meeting environmental regulations.</li>
+              <li>C · Government provision of street lights that is greater than the social optimum output.</li>
+              <li>D · Insured consumers take more risks in the knowledge that the insurer will pay any resulting costs.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official:
+          January 2019 <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_que_20190109.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_msc_20190307.pdf" target="_blank" rel="noopener">scheme</a> ·
+          May 2019 <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_que_20190514.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20190815.pdf" target="_blank" rel="noopener">scheme</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Complete both questions without notes. Distinguish a failure of the unregulated market from a net welfare loss created by government intervention.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Homework MCQ 3–4" data-section="close">
+        <div class="kicker">Homework · Official past-paper MCQs 3–4</div>
+        <h2 class="compact">Habit and social influence</h2>
+        <div class="rule"></div>
+        <div class="content mcq-grid">
+          <div class="mcq-card">
+            <h3>3 · October 2020 Q4</h3>
+            <p>UK mobile phone providers offered new consumers much cheaper deals than existing consumers. Despite this, many existing consumers did not change provider.</p>
+            <p><strong>Which one of the following explains why consumers do not change provider?</strong></p>
+            <ul class="option-list">
+              <li>A · Consumers are good at computation.</li>
+              <li>B · Consumers aim to maximise utility.</li>
+              <li>C · Consumers exhibit habitual behaviour.</li>
+              <li>D · Consumers feel valued by alternative providers.</li>
+            </ul>
+          </div>
+          <div class="mcq-card">
+            <h3>4 · June 2021 Q2</h3>
+            <p>Singapore allowed consumers to change electricity providers. Most consumers did not switch despite the opportunity to save, on average, 20% on bills.</p>
+            <p><strong>Which one of the following could explain this behaviour?</strong></p>
+            <ul class="option-list">
+              <li>A · Consumers are good at computation.</li>
+              <li>B · Consumers aim to maximise their utility.</li>
+              <li>C · Consumers are influenced by the behaviour of others.</li>
+              <li>D · Consumers feel undervalued by their current provider.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official:
+          October 2020 <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_que_20201016.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_msc_20210113.pdf" target="_blank" rel="noopener">scheme</a> ·
+          June 2021 <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_que_20210426.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20210604.pdf" target="_blank" rel="noopener">scheme</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>For each answer, identify the behavioural mechanism rather than simply observing that switching did not occur.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Homework MCQ 5–6" data-section="close">
+        <div class="kicker">Homework · Official past-paper MCQs 5–6</div>
+        <h2 class="compact">Intervention and unintended consequences</h2>
+        <div class="rule"></div>
+        <div class="content mcq-grid">
+          <div class="mcq-card">
+            <h3>5 · October 2021 Q1</h3>
+            <p><strong>Which one of the following is a role of the government in a mixed economy?</strong></p>
+            <ul class="option-list">
+              <li>A · To ration resources according to the price mechanism.</li>
+              <li>B · To charge indirect taxes on goods with external benefits.</li>
+              <li>C · To pay subsidies to manufacturers of goods that produce external costs.</li>
+              <li>D · To introduce a tradeable pollution permit scheme to reduce external costs.</li>
+            </ul>
+          </div>
+          <div class="mcq-card">
+            <h3>6 · May 2022 Q1</h3>
+            <p><strong>Which one of the following is an example of government failure?</strong></p>
+            <ul class="option-list">
+              <li>A · Overconsumption of sugar that creates external costs.</li>
+              <li>B · Smuggling of petrol resulting from the introduction of an indirect tax.</li>
+              <li>C · An increase in the price of timber that creates an incentive to increase its production.</li>
+              <li>D · Government provision of flood defences to resolve the free-rider problem.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official:
+          October 2021 <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_que_20211007.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">scheme</a> ·
+          May 2022 <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-que-20220512.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-rms-20220818.pdf" target="_blank" rel="noopener">scheme</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Question 6 tests unintended consequences: the market problem is not itself government failure unless intervention creates a net welfare loss.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Homework MCQ 7–8" data-section="close">
+        <div class="kicker">Homework · Official past-paper MCQs 7–8</div>
+        <h2 class="compact">Marginal utility and habitual behaviour</h2>
+        <div class="rule"></div>
+        <div class="content mcq-grid">
+          <div class="mcq-card">
+            <h3>7 · October 2022 Q1</h3>
+            <p><strong>Which one of the following statements is a consequence of diminishing marginal utility?</strong></p>
+            <ul class="option-list">
+              <li>A · Total utility will rise at a faster rate as more of a product is consumed.</li>
+              <li>B · The supply curve for a product will slope upwards.</li>
+              <li>C · The demand curve for a product will slope downwards.</li>
+              <li>D · Total utility will rise at a constant rate as more of a product is consumed.</li>
+            </ul>
+          </div>
+          <div class="mcq-card">
+            <h3>8 · January 2023 Q2</h3>
+            <p>New UK home-insurance customers paid £130 in 2020; consumers with the same company since 2015 paid £238 for the same cover. Many consumers stayed loyal.</p>
+            <p><strong>Which one of the following is the most likely reason?</strong></p>
+            <ul class="option-list">
+              <li>A · Consumers feel undervalued.</li>
+              <li>B · Consumers have good computational skills.</li>
+              <li>C · The free-rider problem.</li>
+              <li>D · Habitual behaviour.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official:
+          October 2022 <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-que-20221013.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-rms-20230112.pdf" target="_blank" rel="noopener">scheme</a> ·
+          January 2023 <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-que-20230111.pdf" target="_blank" rel="noopener">paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-rms-20230302.pdf" target="_blank" rel="noopener">scheme</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Diminishing marginal utility means total utility can still rise, but at a decreasing rate, until marginal utility reaches zero.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Homework MCQ 9–10" data-section="close">
+        <div class="kicker">Homework · Official past-paper MCQs 9–10</div>
+        <h2 class="compact">Welfare loss and total utility</h2>
+        <div class="rule"></div>
+        <div class="content mcq-grid">
+          <div class="mcq-card">
+            <h3>9 · October 2024 Q4</h3>
+            <p><strong>Which area shows the welfare loss from chemical production?</strong></p>
+            <svg viewBox="0 0 520 280" role="img" aria-label="Negative production externality diagram with points U, V, W and X" style="width:100%;height:13.2rem;background:#fff;">
+              <line class="axis" x1="58" y1="238" x2="485" y2="238"/>
+              <line class="axis" x1="58" y1="238" x2="58" y2="24"/>
+              <line class="curve-d" x1="58" y1="58" x2="455" y2="238"/>
+              <line class="curve-s" x1="58" y1="210" x2="450" y2="50"/>
+              <line class="curve-social" x1="58" y1="210" x2="335" y2="24"/>
+              <line class="guide" x1="193.1" y1="238" x2="193.1" y2="119.3"/>
+              <line class="guide" x1="234.4" y1="238" x2="234.4" y2="138"/>
+              <polygon class="welfare-area" points="193.1,119.3 234.4,91.5 234.4,138"/>
+              <text class="svg-small" x="183" y="258">Q₂</text>
+              <text class="svg-small" x="224" y="258">Q₁</text>
+              <text class="svg-label" x="181" y="114">U</text>
+              <text class="svg-label" x="239" y="89">V</text>
+              <text class="svg-label" x="239" y="142">W</text>
+              <text class="svg-label" x="198" y="163">X</text>
+              <text class="svg-small" x="338" y="38">MSC</text>
+              <text class="svg-small" x="421" y="69">MPC</text>
+              <text class="svg-small" x="378" y="224">MPB = MSB</text>
+            </svg>
+            <ul class="option-list" style="grid-template-columns:1fr 1fr;">
+              <li>A · UVW</li><li>B · UWX</li><li>C · ZP₁W</li><li>D · ZP₂U</li>
+            </ul>
+          </div>
+          <div class="mcq-card">
+            <h3>10 · October 2024 Q5</h3>
+            <p>The average price of an all-you-can-eat buffet is $20. A typical consumer gains the following marginal utility:</p>
+            <table class="calc-table">
+              <tr><th>Plate</th><th>Marginal utility</th></tr>
+              <tr><td>1st</td><td>6</td></tr>
+              <tr><td>2nd</td><td>4</td></tr>
+              <tr><td>3rd</td><td>2</td></tr>
+              <tr><td>4th</td><td>1</td></tr>
+              <tr><td>5th</td><td>−2</td></tr>
+            </table>
+            <p style="margin-top:0.5rem;"><strong>At which plate would total utility be maximised?</strong></p>
+            <ul class="option-list">
+              <li>A · 2nd plate</li>
+              <li>B · 3rd plate</li>
+              <li>C · 4th plate</li>
+              <li>D · 5th plate</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official October 2024
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-que-20241011.pdf" target="_blank" rel="noopener">question paper</a> /
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International-Advanced-Level/Economics/2018/Exam-materials/wec11-01-rms-20250116.pdf" target="_blank" rel="noopener">mark scheme</a>. Diagram redrawn as native SVG.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>For Question 9, locate the units between the social optimum and market output where marginal social cost exceeds marginal social benefit.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Homework MCQ answer key" data-section="close">
+        <div class="kicker">Homework · Answer key</div>
+        <h2>Mark once all ten are complete</h2>
+        <p class="subtitle">One mark each. Correct the economic distinction, not only the letter.</p>
+        <div class="rule"></div>
+        <details class="answer-details">
+          <summary>Reveal answer key after completing all 10 questions</summary>
+          <div class="content answer-key">
+            <div><strong>1 · A</strong> Excessive administration can make intervention create net welfare loss.</div>
+            <div><strong>2 · D</strong> Moral hazard causes insured consumers to take greater risks.</div>
+            <div><strong>3 · C</strong> Repeating the existing choice despite a cheaper deal is habitual behaviour.</div>
+            <div><strong>4 · C</strong> Observing that others have not switched can reinforce non-switching.</div>
+            <div><strong>5 · D</strong> Tradeable permits are an intervention designed to reduce external costs.</div>
+            <div><strong>6 · B</strong> Smuggling is an unintended consequence of the tax.</div>
+            <div><strong>7 · C</strong> Falling marginal utility helps explain a downward-sloping demand curve.</div>
+            <div><strong>8 · D</strong> Loyalty despite a £108 price gap is consistent with habit or inertia.</div>
+            <div><strong>9 · A</strong> UVW is the triangle where MSC exceeds MSB between Q₂ and Q₁.</div>
+            <div><strong>10 · C</strong> Total utility rises through plate 4 and falls when marginal utility becomes negative.</div>
+          </div>
+        </details>
+        <div class="footer-source">
+          Every answer is verified against the corresponding Pearson official mark scheme linked on Questions 1–10.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>Reveal the key only after submission. Ask for a one-sentence correction wherever the chosen answer was wrong.</p>
+        </template>
+      </section>
+
+      <section class="slide" id="essays" data-title="20-mark worked examples" data-section="exam">
+        <div class="kicker">Worked examples · Two 20-mark responses</div>
+        <h2>Two complete 20-mark examples, not homework</h2>
+        <p class="subtitle">Use these cases to study structure, diagrams, contextual analysis, evaluation and judgement.</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div class="panel ochre">
+            <div class="exam-meta"><span>Example 1 · October 2021 Q13</span><span class="marks">20 marks</span></div>
+            <h3>Uganda mobile internet tax</h3>
+            <p class="dense">Evaluate the likely microeconomic effects of a specific tax of 200 shillings per day when mobile internet participation fell from 47.4% to 35%.</p>
+            <ul class="clean dense">
+              <li>Constant vertical specific-tax shift</li>
+              <li>At least two developed effects</li>
+              <li>At least two contextual evaluations</li>
+              <li>Reasoned judgement on revenue and welfare</li>
+            </ul>
+          </div>
+          <div class="panel blue">
+            <div class="exam-meta"><span>Example 2 · May 2026 Q14</span><span class="marks">20 marks</span></div>
+            <h3>Romania sugary-food tax</h3>
+            <p class="dense">Evaluate the likely microeconomic effects of increasing the ad valorem tax from 9% to 19% when obesity rose from 7.7% to 10.9%.</p>
+            <ul class="clean dense">
+              <li>Pivoting ad valorem supply curves</li>
+              <li>Health externality and stakeholder effects</li>
+              <li>Elasticity, incidence and government failure</li>
+              <li>Reasoned judgement on likely effectiveness</li>
+            </ul>
+          </div>
+          <div class="callout" style="grid-column:1 / -1;">
+            <strong>How to use:</strong> read each question, identify the diagram and argument structure, then study the complete model responses that follow. No essay submission is required.
+          </div>
+        </div>
+        <div class="footer-source">
+          Essay 1: Pearson official October 2021 paper and mark scheme. Essay 2: question supplied from May 2026 WEC11/01; public materials remain locked for nine months under Pearson's
+          <a href="https://qualifications.pearson.com/en/qualifications/edexcel-international-advanced-levels/economics-2018.news.html?article=%2Fcontent%2Fdemo%2Fen%2Fnews-policy%2Fsubject-updates%2Feconomics%2Fial-economics-assessment-support&amp;pageTypes=" target="_blank" rel="noopener">assessment-support policy</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>These two 20-mark cases are worked examples, not homework. Use the questions to understand how the diagrams, KAA chains, evaluation and judgements are developed in the model responses.</p>
+        </template>
+      </section>
+
+      <div class="chapter-heading" id="model-answers">
+        <span>04</span>
+        <div><strong>Worked examples</strong><small>Two complete 20-mark model responses for study</small></div>
+      </div>
+      <section class="slide" id="uganda" data-title="Uganda model answer · Diagram" data-section="exam">
+        <div class="kicker">Model answer · Uganda mobile internet tax</div>
+        <h2 class="compact">The 200-shilling tax raises supply by a constant vertical amount</h2>
+        <p class="subtitle">The vertical distance between S and S + tax is 200 shillings per user-day.</p>
+        <div class="rule"></div>
+        <div class="content split-wide">
+          <svg class="econ" viewBox="0 0 620 410" role="img" aria-label="Specific indirect tax diagram for Uganda mobile internet usage">
+            <line class="axis" x1="74" y1="354" x2="570" y2="354"/>
+            <line class="axis" x1="74" y1="354" x2="74" y2="42"/>
+            <line class="curve-d" x1="108" y1="72" x2="530" y2="336"/>
+            <line class="curve-s" x1="108" y1="330" x2="515" y2="86"/>
+            <line class="curve-tax" x1="108" y1="270" x2="515" y2="26"/>
+            <line class="guide" x1="269.6" y1="354" x2="269.6" y2="173.1"/>
+            <line class="guide" x1="318.6" y1="354" x2="318.6" y2="203.7"/>
+            <line class="guide" x1="74" y1="173.1" x2="269.6" y2="173.1"/>
+            <line class="guide" x1="74" y1="203.7" x2="318.6" y2="203.7"/>
+            <line class="guide" x1="74" y1="233.1" x2="269.6" y2="233.1"/>
+            <rect class="tax-area" x="74" y="173.1" width="195.6" height="60"/>
+            <circle class="point" cx="269.6" cy="173.1" r="5"/>
+            <circle class="point" cx="318.6" cy="203.7" r="5"/>
+            <circle class="point" cx="269.6" cy="233.1" r="5"/>
+            <text class="svg-label" x="520" y="78">S</text>
+            <text class="svg-label" x="492" y="33">S + tax</text>
+            <text class="svg-label" x="530" y="337">D</text>
+            <text class="svg-small" x="42" y="178">Pc</text>
+            <text class="svg-small" x="42" y="209">P₀</text>
+            <text class="svg-small" x="42" y="238">Pp</text>
+            <text class="svg-small" x="258" y="378">Q₁</text>
+            <text class="svg-small" x="307" y="378">Q₀</text>
+            <text class="svg-small" x="12" y="58">Price</text>
+            <text class="svg-small" x="478" y="394">User-days</text>
+            <text class="svg-accent" x="88" y="163">tax revenue</text>
+          </svg>
+          <div class="stack">
+            <div class="panel">
+              <h3>Diagram chain</h3>
+              <p class="dense">The fixed daily tax raises marginal cost by the same amount at every quantity. <span class="key-underline">Supply shifts from S to S + tax without pivoting.</span> Consumer price rises from P₀ to Pc, producers receive Pp net of tax, and usage contracts from Q₀ to Q₁.</p>
+            </div>
+            <div class="panel blue">
+              <h3>Context to integrate</h3>
+              <ul class="clean dense">
+                <li>200 shillings per day</li>
+                <li>Participation: 47.4% → 35%</li>
+                <li>12.4 percentage-point fall</li>
+                <li>Facebook, Twitter and Instagram</li>
+              </ul>
+            </div>
+            <div class="callout dense">
+              <strong>Opening thesis:</strong> <span class="key-underline">participation clearly fell, but the effect on net government revenue and total welfare is uncertain.</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">October 2021 Q13 mark scheme</a>: “specific tax ... supply shifts and does not pivot”.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The question states a fixed charge per day, so the tax wedge is constant. A pivot would misclassify the policy as ad valorem.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Uganda model answer · KAA" data-section="exam">
+        <div class="kicker">Model answer · Uganda · KAA</div>
+        <h2 class="compact">Precise definition, integrated data, multi-stage effects</h2>
+        <div class="rule"></div>
+        <div class="content essay-columns">
+          <div class="essay-text">
+            <p><strong>An indirect tax</strong> is a tax on expenditure imposed when a good or service is purchased. Uganda's charge was a <strong>specific tax</strong> because each consumer paid a fixed 200 shillings per day, rather than a percentage of the value of internet use. It therefore raised the consumer-facing supply price by the same 200 shillings at every quantity.</p>
+            <p>In the diagram, <span class="essay-key">the tax raises the consumer price from P₀ to Pc, lowers the producer's net price to Pp and contracts usage from Q₀ to Q₁</span>. This is consistent with <span class="essay-key">participation falling from 47.4% to 35%, a decline of 12.4 percentage points</span>. Consumer surplus falls because users pay more and some leave the market. Producer surplus and possibly profits also fall because the quantity of taxed access declines and providers retain only Pp after tax.</p>
+            <p>Lower demand for services including Facebook, Twitter and Instagram may reduce advertising reach and revenue. Mobile-network operators may respond by reducing investment or employment if expected returns in Uganda fall. Therefore the tax can affect linked digital markets as well as the direct market for mobile internet access.</p>
+          </div>
+          <div class="essay-text">
+            <p><span class="essay-key">Government revenue = (Pc − Pp) × Q₁</span>: the 200-shilling tax multiplied by taxed user-days. If collection costs are low, this could finance infrastructure or support Ugandan firms. Better digital or transport infrastructure may reduce firms' costs and create external benefits, so some of the loss of private surplus could be converted into wider social benefits through government spending.</p>
+            <p>However, <span class="essay-key">mobile internet may itself create positive externalities</span>. Access to information, online education, communication and digital business can raise the productivity of people beyond the individual buyer. By making access more expensive, the tax may reduce these benefits. Fewer users may also make online advertising less valuable to local firms, reducing sales and employment. These effects make the tax less likely to increase total welfare even if it raises revenue.</p>
+            <p><span class="essay-key">The fixed daily charge may also be regressive</span>. A 200-shilling payment is likely to take a larger proportion of a low-income user's budget than of a high-income user's budget. Poorer households may therefore be more likely to disconnect, widening unequal access to information and communication. This distributional effect is a microeconomic cost not shown by the simple market diagram.</p>
+          </div>
+        </div>
+        <div class="footer-source">Model response aligned to Pearson's official Q13 indicative content and Level 4 KAA descriptor.</div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The answer uses each stem fact inside a causal chain. It distinguishes gross tax revenue from net social benefit and explains effects on users, providers, linked firms and the government.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Uganda model answer · Evaluation" data-section="exam">
+        <div class="kicker">Model answer · Uganda · Evaluation and judgement</div>
+        <h2 class="compact">The observed fall proves a response, not policy success</h2>
+        <div class="rule"></div>
+        <div class="content essay-columns">
+          <div class="essay-text">
+            <p><strong>The magnitude depends first on price elasticity of demand.</strong> If demand is price inelastic because internet access has few close substitutes, consumer usage falls proportionately less than price rises. Consumers then bear more of the tax and government revenue is likely to be high. If demand is elastic, perhaps because users can use Wi-Fi, share accounts or stop using social media, Q₁ falls sharply, providers bear more of the burden and the revenue base contracts.</p>
+            <p>The participation data suggest a substantial behavioural response: the share using mobile internet fell by 12.4 percentage points, or about 26% relative to 47.4%. Nevertheless, <span class="essay-key">this does not measure price elasticity</span> because the question gives neither the percentage price increase nor other factors affecting demand. It also reports the share of people using the service, not the minutes used or the number of taxable days. The data therefore cannot establish the amount of revenue collected.</p>
+            <p><strong>Unintended consequences may create government failure.</strong> Users may evade the charge through illegal access, while collection and monitoring create administrative costs. If these costs exceed the benefits of intervention, the policy produces net welfare loss. The tax may also discourage digital investment or block valuable information, outcomes inconsistent with long-run productivity growth.</p>
+          </div>
+          <div class="essay-text">
+            <p>On the other hand, Uganda may still collect considerable revenue from the 35% of the population that remains connected. Global platforms may experience only a small fall in total profit because Uganda is a small part of their worldwide market. The domestic welfare effect could therefore be much larger than the effect on Facebook, Twitter or Instagram as global firms.</p>
+            <p><span class="essay-key">The outcome also depends on how revenue is used</span>. Spending it on reliable internet infrastructure, education or support for domestic firms may offset some lost surplus. If it is misdirected, not ring-fenced or absorbed by administration, the gross revenue rectangle overstates the policy's benefit. Distribution matters too: a fixed daily tax is more likely to exclude low-income users even when higher-income users continue consuming.</p>
+            <p><strong>Judgement.</strong> <span class="essay-key">The most certain effect is reduced participation and lower consumer surplus</span>: the fall from 47.4% to 35% supports this. The policy may have raised gross revenue, but its success at raising <em>net</em> revenue cannot be confirmed without data on taxable user-days, evasion and administrative cost. Overall welfare is likely to fall if demand is elastic among poorer users and mobile access generates significant external benefits. <span class="essay-key">The tax is more defensible if demand is inelastic, collection is cheap and the revenue is productively invested</span>, but those conditions are not established by the evidence.</p>
+          </div>
+        </div>
+        <div class="footer-source">
+          Pearson official <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">mark scheme</a>, pp.17–19.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The final judgement separates what the evidence proves from what remains unknown. That critical use of evidence is central to Evaluation Level 3.</p>
+        </template>
+      </section>
+
+      <section class="slide" id="romania" data-title="Romania model answer · Question and diagram" data-section="exam">
+        <div class="kicker">Model answer · May 2026 Romania sugary-food tax</div>
+        <h2 class="compact">A percentage tax rotates supply; 19% rotates it further than 9%</h2>
+        <div class="rule"></div>
+        <div class="content split-wide">
+          <svg class="econ" viewBox="0 0 620 410" role="img" aria-label="Ad valorem tax increase from 9 percent to 19 percent on sugary foods in Romania">
+            <line class="axis" x1="76" y1="354" x2="570" y2="354"/>
+            <line class="axis" x1="76" y1="354" x2="76" y2="42"/>
+            <line class="curve-d" x1="108" y1="62" x2="536" y2="337"/>
+            <line class="curve-s" x1="76" y1="354" x2="526" y2="170"/>
+            <line class="curve-sub" x1="76" y1="354" x2="526" y2="153.4"/>
+            <line class="curve-tax" x1="76" y1="354" x2="526" y2="135"/>
+            <line class="guide" x1="352.8" y1="354" x2="352.8" y2="219.3"/>
+            <line class="guide" x1="363.2" y1="354" x2="363.2" y2="226"/>
+            <line class="guide" x1="76" y1="219.3" x2="352.8" y2="219.3"/>
+            <line class="guide" x1="76" y1="226" x2="363.2" y2="226"/>
+            <line class="guide" x1="76" y1="240.8" x2="352.8" y2="240.8"/>
+            <rect class="tax-area" x="76" y="219.3" width="276.8" height="21.5"/>
+            <circle class="point" cx="352.8" cy="219.3" r="5"/>
+            <circle class="point" cx="363.2" cy="226" r="5"/>
+            <circle class="point" cx="352.8" cy="240.8" r="5"/>
+            <text class="svg-label" x="529" y="170">S</text>
+            <text class="svg-label" x="470" y="150">S + 9%</text>
+            <text class="svg-label" x="458" y="128">S + 19%</text>
+            <text class="svg-label" x="538" y="339">D</text>
+            <text class="svg-small" x="36" y="214">Pc</text>
+            <text class="svg-small" x="36" y="232">P₉</text>
+            <text class="svg-small" x="36" y="250">Pp</text>
+            <text class="svg-small" x="326" y="379">Q₁₉</text>
+            <text class="svg-small" x="369" y="379">Q₉</text>
+            <text class="svg-small" x="13" y="58">Price</text>
+            <text class="svg-small" x="455" y="396">Sugary foods</text>
+            <text class="svg-accent" x="91" y="210">19% revenue</text>
+          </svg>
+          <div class="stack">
+            <div class="exam-box dense">
+              <div class="exam-meta"><span>2026-05 WEC11/01 Q14</span><span class="marks">20 marks</span></div>
+              <p>Between 2000 and 2024 obesity increased in Romania from 7.7% to 10.9% of the population.</p>
+              <p>In 2024 the Government of Romania increased the indirect tax on sugary foods from 9% to 19%.</p>
+              <p><strong>Evaluate the likely microeconomic effects. Illustrate your answer with a supply and demand diagram.</strong></p>
+            </div>
+            <div class="panel blue dense">
+              <h3>Read the result</h3>
+              <p><span class="key-underline">Consumer price rises from P₉ to Pc, producer net price falls to Pp, and quantity contracts from Q₉ to Q₁₉.</span> The new tax rate is 10 percentage points higher.</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-source">
+          Question verified from the supplied May 2026 image. Pearson's public
+          <a href="https://qualifications.pearson.com/en/qualifications/edexcel-international-advanced-levels/economics-2018.news.html?article=%2Fcontent%2Fdemo%2Fen%2Fnews-policy%2Fsubject-updates%2Feconomics%2Fial-economics-assessment-support&amp;pageTypes=" target="_blank" rel="noopener">assessment policy</a>
+          keeps exam materials locked for nine months; no public May 2026 mark scheme was available on 25 October 2026.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The diagram compares the existing 9% tax with the new 19% rate. The second taxed supply curve is steeper because the percentage wedge is larger at every producer price.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Romania model answer · KAA" data-section="exam">
+        <div class="kicker">Model answer · Romania · KAA</div>
+        <h2 class="compact">From tax definition to health, surplus and revenue effects</h2>
+        <div class="rule"></div>
+        <div class="content essay-columns">
+          <div class="essay-text">
+            <p><strong>An indirect tax</strong> is a tax on expenditure imposed when a good is sold. Romania's tax is <strong>ad valorem</strong> because it is charged as a percentage of the value of sugary foods. <span class="essay-key">Raising the rate from 9% to 19% is a 10-percentage-point increase</span>. Since the money tax per unit becomes larger at higher prices, the tax-inclusive supply curve rotates upwards from S + 9% to S + 19%, with the vertical tax gap increasing as price rises.</p>
+            <p>In the diagram, the higher rate raises firms' marginal cost. <span class="essay-key">Consumer price rises from P₉ to Pc, producer net price falls to Pp and quantity contracts from Q₉ to Q₁₉</span>. Consumer surplus falls because remaining buyers pay more and some purchases no longer occur. Producer surplus and profits may also fall because firms sell fewer sugary foods and receive a lower net price.</p>
+            <p>The contraction may improve allocative efficiency if sugary-food consumption creates external costs. Diet-related obesity can impose healthcare costs on taxpayers and reduce workplace productivity. <span class="essay-key">Obesity rose from 7.7% to 10.9% between 2000 and 2024</span>, suggesting the potential external cost is significant. By making consumers face more of the social cost through a higher price, the tax may reduce overconsumption and move output towards the social optimum.</p>
+          </div>
+          <div class="essay-text">
+            <p><span class="essay-key">Consumers may substitute towards foods with less sugar, while firms gain an incentive to reformulate</span>. This can improve diet and may reduce future obesity-related illness, lowering pressure on healthcare services. The policy may therefore change both consumer demand and producer behaviour over time.</p>
+            <p><span class="essay-key">Government revenue = the 19% tax wedge × Q₁₉</span>. This revenue could finance healthcare, nutrition information or subsidies for healthier foods, reinforcing the reduction in external costs. However, gross revenue is not itself a net welfare gain: part of it is transferred from lost consumer and producer surplus, and collection has administrative costs.</p>
+            <p>The tax may reduce output, revenue and employment in Romanian sugary-food producers and retailers. These firms may pass much of the tax to consumers, accept lower margins, or change their product mix. <span class="essay-key">The less price-elastic side of the market bears more of the tax burden</span>. Low-income households could be disproportionately affected because food spending forms a larger share of their income.</p>
+          </div>
+        </div>
+        <div class="footer-source">
+          Model response applies Pearson Specification 1.3.4–1.3.6 and the public WEC11 20-mark level descriptors.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The answer integrates both stem statistics and separates a transfer of surplus into revenue from a genuine reduction in external cost.</p>
+        </template>
+      </section>
+
+      <section class="slide" data-title="Romania model answer · Evaluation" data-section="exam">
+        <div class="kicker">Model answer · Romania · Evaluation and judgement</div>
+        <h2 class="compact">Effectiveness depends on response, substitution and evidence</h2>
+        <div class="rule"></div>
+        <div class="content essay-columns">
+          <div class="essay-text">
+            <p><strong>Price elasticity of demand is decisive.</strong> If sugary foods are habitual purchases with few close substitutes, demand may be price inelastic. The price rise then causes only a small reduction in Q, so consumers bear more of the tax. Revenue may rise strongly, but the health effect is limited. If healthier foods are close and affordable substitutes, demand is more elastic, consumption falls further and the policy is more effective at reducing the external cost, although revenue may be lower than expected.</p>
+            <p><span class="essay-key">The tax is more regressive when demand is inelastic</span>. Low-income households that continue buying sugary foods lose a larger share of real income. Subsidising fruit or reformulating products could reduce this trade-off. Some consumers may instead buy untaxed sugary substitutes, shop across borders or switch to products with other unhealthy ingredients. Such substitution would weaken the health gain without removing the burden.</p>
+            <p><strong>The obesity evidence does not prove causation.</strong> The rise from 7.7% to 10.9% occurred over 24 years and may also reflect exercise, income, portion size, genetics and consumption of non-taxed foods. Obesity changes with a time lag, so the short-run fall in sugary-food purchases may not quickly reduce the measured obesity rate. The government may therefore set 19% above or below the tax that accurately reflects marginal external cost.</p>
+          </div>
+          <div class="essay-text">
+            <p><span class="essay-key">Government revenue is ambiguous rather than automatically higher</span>. The rate more than doubles relative to 9%, but the tax base Q contracts. Revenue rises if the higher tax per unit outweighs the reduction in taxed sales. The net benefit is smaller if monitoring, classification and collection are costly or if revenue is not used for health-related purposes.</p>
+            <p><span class="essay-key">In the longer run, producers can reformulate and supply and demand may become more responsive</span>. That can increase the health benefit while limiting job losses. Conversely, lobbying, avoidance or inaccurate nutritional information may create government failure. A tax alone cannot correct information gaps if consumers still underestimate health risks.</p>
+            <p><strong>Judgement.</strong> <span class="essay-key">The most likely immediate effects are a higher consumer price, lower producer net price and lower quantity</span>. The policy is most likely to improve welfare when demand is sufficiently elastic, sugary foods are a major cause of Romania's external health costs, and revenue supports complementary health measures. If demand is inelastic, the principal result will instead be higher revenue and a regressive burden with only a small consumption change. <span class="essay-key">The direction of the market effect is clear, but the size of the welfare gain is uncertain</span>.</p>
+          </div>
+        </div>
+        <div class="footer-source">
+          No public May 2026 mark scheme was available at the time of preparation. This model is explicitly derived from Pearson's public
+          <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Specification-and-Sample-Assessment/International-A-Level-Economics-spec.pdf" target="_blank" rel="noopener">specification</a>
+          and <a href="https://qualifications.pearson.com/content/dam/pdf/International%20Advanced%20Level/Economics/2018/Exam-materials/WEC11_01_rms_20220113.pdf" target="_blank" rel="noopener">established 20-mark descriptors</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The judgement ranks the conditions rather than listing them. It distinguishes the certain direction of the market effect from the uncertain size of the welfare effect.</p>
+        </template>
+      </section>
+
+      <section class="slide" id="checklist" data-title="Homework completion checklist" data-section="close">
+        <div class="kicker">Final checklist · Submit only this workload</div>
+        <h2>Homework: 10 MCQs only</h2>
+        <p class="subtitle">The Uganda and Romania 20-mark responses are worked examples, not assignments.</p>
+        <div class="rule"></div>
+        <div class="content grid-2">
+          <div class="panel">
+            <div class="big-number">10</div>
+            <h3>Homework · Multiple-choice</h3>
+            <p>Record one letter and one correction sentence for every error.</p>
+          </div>
+          <div class="panel green">
+            <div class="big-number">2</div>
+            <h3>Worked examples · No submission</h3>
+            <p>Study the Uganda specific-tax and Romania ad valorem-tax diagrams, analysis, evaluation and judgements.</p>
+          </div>
+          <div class="callout" style="grid-column:1 / -1;">
+            <strong>Submit:</strong> only the 10 MCQ answers and one correction sentence for each error. The two 20-mark examples are reading material.
+          </div>
+        </div>
+        <div class="footer-source">
+          Official source hub: <a href="https://qualifications.pearson.com/en/qualifications/edexcel-international-advanced-levels/economics-2018.html" target="_blank" rel="noopener">Pearson Edexcel IAL Economics (2018)</a>.
+        </div>
+        <template class="speaker-note">
+          <h3>English script</h3>
+          <p>The submitted workload is limited to ten multiple-choice questions. The two 20-mark cases are complete worked examples for reading and discussion.</p>
+        </template>
+      </section>
+
+    </div>
+
+    <button class="nav-btn" id="prevBtn" title="Previous slide (←)" aria-label="Previous slide">‹</button>
+    <button class="nav-btn" id="nextBtn" title="Next step or slide (→ / Space)" aria-label="Next step or slide">›</button>
+    <div class="toolbar">
+      <button class="tool-btn" id="tocBtn" title="Contents (O)" aria-label="Open contents">☰</button>
+      <button class="tool-btn" id="resetBtn" title="Reset this slide (R)" aria-label="Reset this slide">↺</button>
+      <button class="tool-btn" id="presenterBtn" title="Presenter mode (P)" aria-label="Presenter mode">P</button>
+      <button class="tool-btn" id="fullscreenBtn" title="Fullscreen" aria-label="Fullscreen">⛶</button>
+    </div>
+    <div class="page-count" id="pageCount">1 / 1</div>
+    <div class="section-tag" id="sectionTag">Review</div>
+  </main>
+
+  <div class="toc" id="toc" aria-hidden="true">
+    <div class="toc-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;">
+        <div><div class="kicker">Contents</div><h2 style="font-size:2rem;">Lesson navigator</h2></div>
+        <button class="tool-btn" id="tocClose" aria-label="Close contents">×</button>
+      </div>
+      <div class="toc-list" id="tocList"></div>
+    </div>
+  </div>
+
+  <div class="presenter" id="presenter">
+    <div class="presenter-preview" id="presenterPreview"></div>
+    <aside class="presenter-notes">
+      <div class="presenter-controls">
+        <button id="pPrev">← Previous</button>
+        <button id="pNext">Next →</button>
+        <button id="openStudent">Open student window</button>
+        <button id="pClose">Close</button>
+      </div>
+      <div id="presenterNote"></div>
+    </aside>
+  </div>
+
+</body>
+</html>
